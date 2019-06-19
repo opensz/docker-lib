@@ -7,7 +7,7 @@
 * Arial Unicode MS  微软字体，支持中日韩
 
 # docker 清单
-## JDK
+## JDK/NodeJs
 
 * openjdk/11-jdk-cn
 
@@ -20,6 +20,10 @@ docker pull szopen/openjdk:8-jdk-cn
 * openjdk/8-jdk-alpine
 
 docker pull szopen/openjdk:8-jdk-alpine
+
+* node/10-build
+
+docker pull szopen/node:10-build
 
 ## Application Server
 
