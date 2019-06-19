@@ -8,13 +8,18 @@
 
 # docker 清单
 ## JDK
-* openjdk/8-jdk-cn
-
-docker pull szopen/openjdk:8-jdk-cn
 
 * openjdk/11-jdk-cn
 
 docker pull szopen/openjdk:11-jdk-cn
+
+* openjdk/8-jdk-cn
+
+docker pull szopen/openjdk:8-jdk-cn
+
+* openjdk/8-jdk-alpine
+
+docker pull szopen/openjdk:8-jdk-alpine
 
 ## Application Server
 
@@ -22,7 +27,7 @@ docker pull szopen/openjdk:11-jdk-cn
 
 docker pull szopen/tomcat:8-jdk8-cn
 
-## DB
+## Database Server
 
 * mysql/5.7-utf8
 
