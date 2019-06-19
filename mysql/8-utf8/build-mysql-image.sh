@@ -3,7 +3,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${DIR}
 
 artifactId=mysql
-version=5.7-utf8
+version=8-utf8
 
 # docker
 docker build -t ${artifactId}:${version} -f ./Dockerfile .

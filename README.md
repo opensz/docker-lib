@@ -29,3 +29,9 @@ docker pull szopen/tomcat:8-jdk8-cn
 支持中文，默认编码为utf8mb4
 
 docker pull szopen/mysql:5.7-utf8
+
+* mysql/8-utf8
+
+支持中文，默认编码为utf8mb4
+
+docker pull szopen/mysql:8-utf8
