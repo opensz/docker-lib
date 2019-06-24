@@ -2,16 +2,8 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${DIR}
 
-
-
-if [ ! -d "node-sass" ];then
-  mkdir node-sass
-fi
-cp ../share/node-sass/4.12.0/*x64-64*.node ./node-sass/
-
-
-artifactId=node
-version=10-build
+artifactId=node-sass
+version=8-alpine
 
 # docker
 docker build -t ${artifactId}:${version} -f ./Dockerfile .
