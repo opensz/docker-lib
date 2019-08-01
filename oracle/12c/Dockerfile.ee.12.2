@@ -1,0 +1,6 @@
+## oracle dev only
+FROM oracle/database:12.2.0.1-ee
+## 设置时区+8 （北京/上海）
+ENV TZ Asia/Shanghai
+## 采用默认UTF编码即可，无须修改
+##ENV ORACLE_CHARACTERSET ZHS16GBK
