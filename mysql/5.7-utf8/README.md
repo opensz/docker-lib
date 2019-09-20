@@ -4,7 +4,27 @@ mysql:5.7-utf8
 * 支持中文(utf8mb4)
 * 支持sql文件初始化
 
+支持的tag：
+
+5.7-utf8 / 5.7 / 5
+```
+FROM mysql:5.7
+ENV TZ Asia/Shanghai
+COPY conf/utf8mb4.cnf /etc/mysql/mysql.conf.d/
+COPY conf/docker.cnf /etc/mysql/mysql.conf.d/
+VOLUME /docker-entrypoint-initdb.d/
+VOLUME /etc/mysql/conf.d/
+```
 # 参考
+
+## docker official mysql
+
+https://hub.docker.com/_/mysql
+
+Dockfile
+
+https://github.com/docker-library/mysql
+
 
 ## oracle mysql-server
 
@@ -42,10 +62,4 @@ volumes:
   xxx-mysql-data:
 ``` 
 
-## docker official mysql
 
-https://hub.docker.com/_/mysql
-
-Dockfile
-
-https://github.com/docker-library/mysql

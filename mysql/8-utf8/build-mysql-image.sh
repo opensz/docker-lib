@@ -14,3 +14,11 @@ group=szopen
 #docker login -u szopen -p
 docker tag ${artifactId}:${version} ${group}/${artifactId}:${version}
 #docker push ${group}/${artifactId}:${version}
+
+
+docker tag ${artifactId}:${version} ${group}/${artifactId}:8
+docker push ${group}/${artifactId}:8
+
+## latest
+docker tag ${artifactId}:${version} ${group}/${artifactId}:latest
+docker push ${group}/${artifactId}:latest

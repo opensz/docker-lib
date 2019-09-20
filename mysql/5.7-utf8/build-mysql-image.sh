@@ -13,4 +13,10 @@ docker build -t ${artifactId}:${version} -f ./Dockerfile .
 group=szopen
 #docker login -u szopen -p
 docker tag ${artifactId}:${version} ${group}/${artifactId}:${version}
-#docker push ${group}/${artifactId}:${version}
+docker push ${group}/${artifactId}:${version}
+
+docker tag ${artifactId}:${version} ${group}/${artifactId}:5.7
+docker push ${group}/${artifactId}:5.7
+
+docker tag ${artifactId}:${version} ${group}/${artifactId}:5
+docker push ${group}/${artifactId}:5
