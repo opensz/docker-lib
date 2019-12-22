@@ -1,0 +1,161 @@
+releases:
+  - name: keycloak
+    namespace: devops
+    # https://github.com/kubernetes/charts/tree/master/stable/keycloak
+    chart: stable/keycloak
+    values:
+      - keycloak:
+          ingress:
+            enabled: true
+            path: /auth
+            hosts:
+              - keycloak.{{ requiredEnv "DEVOPS_DOMAIN" }}
+          persistence:
+            deployPostgres: false
+            dbVendor: POSTGRES
+            dbHost: {{ requiredEnv "DEVOPS_POSTGRES_HOST" }}
+            dbUser: keycloak
+            dbPassword: keycloak
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 512Mi
+
+  - name: atlassian-jira-software
+    namespace: devops
+    chart: ./atlassian-jira-software
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - jira.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        jira:
+          javaHeapSize: 1536m
+          reverseProxyHost: jira.{{ requiredEnv "DEVOPS_DOMAIN" }}
+          # Disable websudo for SAML or OIDC
+          javaOptions: "-Djira.websudo.is.disabled=true"
+        resources:
+          limits:
+            # for single core CPU
+            cpu: 800m
+            memory: 2560Mi
+          requests:
+            cpu: 0
+            memory: 2560Mi
+
+  - name: atlassian-confluence
+    namespace: devops
+    chart: ./atlassian-confluence
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - confluence.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        confluence:
+          reverseProxyHost: confluence.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        resources:
+          limits:
+            # for single core CPU
+            cpu: 800m
+            memory: 2048Mi
+          requests:
+            cpu: 0
+            memory: 2048Mi
+
+  - name: gitlab
+    namespace: devops
+    chart: ./gitlab
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - gitlab.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        gitlab:
+          dbHost: {{ requiredEnv "DEVOPS_POSTGRES_HOST" }}
+          dbName: gitlab
+          dbUsername: gitlab
+          dbPassword: gitlab
+          externalURL: https://gitlab.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 2Gi
+
+  - name: mattermost
+    namespace: devops
+    chart: ./mattermost
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - mattermost.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        mattermost:
+          dbHost: {{ requiredEnv "DEVOPS_POSTGRES_HOST" }}
+          dbName: mattermost
+          dbUsername: mattermost
+          dbPassword: mattermost
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            memory: 256Mi
+
+  - name: jira-to-slack
+    namespace: devops
+    chart: ./jira-to-slack
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - jira-to-slack.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        resources:
+          limits:
+            memory: 32Mi
+          requests:
+            memory: 32Mi
+
+  - name: nextcloud
+    namespace: devops
+    chart: ./nextcloud
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - nextcloud.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        externalDatabase:
+          type: POSTGRES
+          host: {{ requiredEnv "DEVOPS_POSTGRES_HOST" }}
+          database: nextcloud
+          username: nextcloud
+          password: nextcloud
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            memory: 256Mi
+
+  # Pending issue https://github.com/kubernetes/charts/pull/6294
+  # You need to fix HMD_DB_URL in the deployment.
+  - name: hackmd
+    namespace: devops
+    chart: stable/hackmd
+    values:
+      - ingress:
+          enabled: true
+          hosts:
+            - hackmd.{{ requiredEnv "DEVOPS_DOMAIN" }}
+        postgresql:
+          install: false
+          postgresHost: {{ requiredEnv "DEVOPS_POSTGRES_HOST" }}
+          postgresDatabase: hackmd
+          postgresUser: hackmd
+          postgresPassword: hackmd
+        persistence:
+          enabled: false
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            memory: 256Mi
