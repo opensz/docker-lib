@@ -1,0 +1,13 @@
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    container_name: jenkins
+    ports:
+      - 2080:8080
+      - 2500:50000
+    volumes:
+      - /data/jenkins/home:/var/jenkins_home
+      - /data/jenkins/plugins:/var/jenkins_home/plugins
+      - /data/maven_repo:/var/jenkins_home/.m2
+      - /var/run/docker.sock:/var/run/docker.sock
