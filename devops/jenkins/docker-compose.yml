@@ -1,8 +1,9 @@
 version: '3'
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk11
-    #image: szopen/jenkins:latest
+    image: szopen/jenkins:latest
+    #image: jenkins/jenkins:lts-jdk11
+    user: jenkins #root/jenkins
     container_name: jenkins
     ports:
       - 2080:8080
